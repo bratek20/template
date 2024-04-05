@@ -1,2 +1,1 @@
-# template
-Template for other projects
+TODO
