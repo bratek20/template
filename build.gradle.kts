@@ -1,19 +1,6 @@
 plugins {
-    id("java")
+    alias(libs.plugins.bratek20.base.conventions)
 }
 
-group = "pl.bratek20"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
+group = "pl.bratek20.template" // TODO: Change this
+version = "1.0.0-SNAPSHOT"
