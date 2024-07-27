@@ -1,6 +1,6 @@
 rootProject.name = "template" // TODO: Change this
 
-val catalogVersion = "1.0.45"
+val catalogVersion = "1.0.47"
 
 include("app")
 include("lib")
