@@ -1,18 +1,26 @@
 rootProject.name = "template" // TODO: Change this
 
+val catalogVersion = "1.0.42"
+
+include("app")
+include("lib")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
 
         mavenLocal()
 
-        if (System.getenv("GITHUB_ACTOR") != null) {
+        val githubActor: String? = if (extra.has("githubActor")) extra["githubActor"] as String else System.getenv("GITHUB_ACTOR")
+        val githubToken: String? = if (extra.has("githubToken")) extra["githubToken"] as String else System.getenv("GITHUB_TOKEN")
+
+        if (githubActor != null && githubToken != null) {
             maven {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/bratek20/starter")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
+                    username = githubActor
+                    password = githubToken
                 }
             }
         }
@@ -22,20 +30,24 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            from("pl.bratek20:version-catalog:1.0.0-SNAPSHOT")
+            from("com.github.bratek20:version-catalog:$catalogVersion")
         }
     }
 
     repositories {
         mavenLocal()
+        mavenCentral()
 
-        if (System.getenv("GITHUB_ACTOR") != null) {
+        val githubActor: String? = if (extra.has("githubActor")) extra["githubActor"] as String else System.getenv("GITHUB_ACTOR")
+        val githubToken: String? = if (extra.has("githubToken")) extra["githubToken"] as String else System.getenv("GITHUB_TOKEN")
+
+        if (githubActor != null && githubToken != null) {
             maven {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/bratek20/starter")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
+                    username = githubActor
+                    password = githubToken
                 }
             }
         }
