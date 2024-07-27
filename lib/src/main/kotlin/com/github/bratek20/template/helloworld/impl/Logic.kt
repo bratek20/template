@@ -1,9 +1,12 @@
 package com.github.bratek20.template.helloworld.impl
 
+import com.github.bratek20.logs.api.Logger
 import com.github.bratek20.template.helloworld.api.*
 
-class HelloWorldApiLogic: HelloWorldApi {
+class HelloWorldApiLogic(
+    private val logger: Logger
+): HelloWorldApi {
     override fun sayHello(): Unit {
-        TODO("Not yet implemented")
+        logger.info("Hello World!", this)
     }
 }
