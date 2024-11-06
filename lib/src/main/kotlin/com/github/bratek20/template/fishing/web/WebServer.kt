@@ -21,9 +21,9 @@ class FishingApiController(
     private val serializer: Serializer = SerializationFactory.createSerializer()
 
     @PostMapping("/catchFish")
-    fun catchFish(): Struct {
-        // no request needed
-        return serializer.asStruct(FishingApiCatchFishResponse(api.catchFish()))
+    fun catchFish(@RequestBody rawRequest: Struct): Struct {
+        val request = serializer.fromStruct(rawRequest, FishingApiCatchFishRequest::class.java)
+        return serializer.asStruct(FishingApiCatchFishResponse(api.catchFish(request.getLure())))
     }
 }
 

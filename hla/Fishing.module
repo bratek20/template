@@ -1,11 +1,30 @@
 ValueObjects
-    Fish
+    FishId: string
+
+    CaughtFish
+        id: FishId
         name: string
         points: int
 
+    Lure
+        fishId: FishId
+
+Properties
+    FishContent
+        id: FishId
+        name: string
+        minPoints: int
+        maxPoints: int
+
+    Fishery
+        fishes: FishContent[]
+
+    "Fishery" -> Fishery
+
 Interfaces
     FishingApi
-        catchFish(): Fish
+        catchFish(lure: Lure): CaughtFish
+            throws
 
 Web
     Http

@@ -12,8 +12,8 @@ class FishingApiWebClient(
 ): FishingApi {
     private val client = factory.create(config.value)
 
-    override fun catchFish(): Fish {
-        return client.post("/fishingApi/catchFish", null).getBody(FishingApiCatchFishResponse::class.java).getValue()
+    override fun catchFish(lure: Lure): CaughtFish {
+        return client.post("/fishingApi/catchFish", FishingApiCatchFishRequest.create(lure)).getBody(FishingApiCatchFishResponse::class.java).getValue()
     }
 }
 

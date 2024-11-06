@@ -10,10 +10,22 @@ class FishingWebClientConfig(
     val value: HttpClientConfig
 ) {
 }
-class FishingApiCatchFishResponse(
-    private val value: Fish
+class FishingApiCatchFishRequest(
+    private val lure: Lure
 ) {
-    fun getValue(): Fish {
+    fun getLure(): Lure {
+        return lure
+    }
+    companion object {
+        fun create(lure: Lure): FishingApiCatchFishRequest {
+            return FishingApiCatchFishRequest(lure)
+        }
+    }
+}
+class FishingApiCatchFishResponse(
+    private val value: CaughtFish
+) {
+    fun getValue(): CaughtFish {
         return value
     }
 }

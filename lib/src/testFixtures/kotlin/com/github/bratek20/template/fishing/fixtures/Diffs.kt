@@ -4,13 +4,23 @@ package com.github.bratek20.template.fishing.fixtures
 
 import com.github.bratek20.template.fishing.api.*
 
-data class ExpectedFish(
+fun diffFishId(given: FishId, expected: String, path: String = ""): String {
+    if (given.value != expected) { return "${path}value ${given.value} != ${expected}" }
+    return ""
+}
+
+data class ExpectedCaughtFish(
+    var id: String? = null,
     var name: String? = null,
     var points: Int? = null,
 )
-fun diffFish(given: Fish, expectedInit: ExpectedFish.() -> Unit, path: String = ""): String {
-    val expected = ExpectedFish().apply(expectedInit)
+fun diffCaughtFish(given: CaughtFish, expectedInit: ExpectedCaughtFish.() -> Unit, path: String = ""): String {
+    val expected = ExpectedCaughtFish().apply(expectedInit)
     val result: MutableList<String> = mutableListOf()
+
+    expected.id?.let {
+        if (diffFishId(given.getId(), it) != "") { result.add(diffFishId(given.getId(), it, "${path}id.")) }
+    }
 
     expected.name?.let {
         if (given.getName() != it) { result.add("${path}name ${given.getName()} != ${it}") }
@@ -18,6 +28,64 @@ fun diffFish(given: Fish, expectedInit: ExpectedFish.() -> Unit, path: String = 
 
     expected.points?.let {
         if (given.getPoints() != it) { result.add("${path}points ${given.getPoints()} != ${it}") }
+    }
+
+    return result.joinToString("\n")
+}
+
+data class ExpectedLure(
+    var fishId: String? = null,
+)
+fun diffLure(given: Lure, expectedInit: ExpectedLure.() -> Unit, path: String = ""): String {
+    val expected = ExpectedLure().apply(expectedInit)
+    val result: MutableList<String> = mutableListOf()
+
+    expected.fishId?.let {
+        if (diffFishId(given.getFishId(), it) != "") { result.add(diffFishId(given.getFishId(), it, "${path}fishId.")) }
+    }
+
+    return result.joinToString("\n")
+}
+
+data class ExpectedFishContent(
+    var id: String? = null,
+    var name: String? = null,
+    var minPoints: Int? = null,
+    var maxPoints: Int? = null,
+)
+fun diffFishContent(given: FishContent, expectedInit: ExpectedFishContent.() -> Unit, path: String = ""): String {
+    val expected = ExpectedFishContent().apply(expectedInit)
+    val result: MutableList<String> = mutableListOf()
+
+    expected.id?.let {
+        if (diffFishId(given.getId(), it) != "") { result.add(diffFishId(given.getId(), it, "${path}id.")) }
+    }
+
+    expected.name?.let {
+        if (given.getName() != it) { result.add("${path}name ${given.getName()} != ${it}") }
+    }
+
+    expected.minPoints?.let {
+        if (given.getMinPoints() != it) { result.add("${path}minPoints ${given.getMinPoints()} != ${it}") }
+    }
+
+    expected.maxPoints?.let {
+        if (given.getMaxPoints() != it) { result.add("${path}maxPoints ${given.getMaxPoints()} != ${it}") }
+    }
+
+    return result.joinToString("\n")
+}
+
+data class ExpectedFishery(
+    var fishes: List<(ExpectedFishContent.() -> Unit)>? = null,
+)
+fun diffFishery(given: Fishery, expectedInit: ExpectedFishery.() -> Unit, path: String = ""): String {
+    val expected = ExpectedFishery().apply(expectedInit)
+    val result: MutableList<String> = mutableListOf()
+
+    expected.fishes?.let {
+        if (given.getFishes().size != it.size) { result.add("${path}fishes size ${given.getFishes().size} != ${it.size}"); return@let }
+        given.getFishes().forEachIndexed { idx, entry -> if (diffFishContent(entry, it[idx]) != "") { result.add(diffFishContent(entry, it[idx], "${path}fishes[${idx}].")) } }
     }
 
     return result.joinToString("\n")

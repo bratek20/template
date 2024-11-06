@@ -2,10 +2,23 @@
 
 package com.github.bratek20.template.fishing.api
 
-data class Fish(
+data class FishId(
+    val value: String
+) {
+    override fun toString(): String {
+        return value.toString()
+    }
+}
+
+data class CaughtFish(
+    private val id: String,
     private val name: String,
     private val points: Int,
 ) {
+    fun getId(): FishId {
+        return FishId(this.id)
+    }
+
     fun getName(): String {
         return this.name
     }
@@ -16,12 +29,89 @@ data class Fish(
 
     companion object {
         fun create(
+            id: FishId,
             name: String,
             points: Int,
-        ): Fish {
-            return Fish(
+        ): CaughtFish {
+            return CaughtFish(
+                id = id.value,
                 name = name,
                 points = points,
+            )
+        }
+    }
+}
+
+data class Lure(
+    private val fishId: String,
+) {
+    fun getFishId(): FishId {
+        return FishId(this.fishId)
+    }
+
+    companion object {
+        fun create(
+            fishId: FishId,
+        ): Lure {
+            return Lure(
+                fishId = fishId.value,
+            )
+        }
+    }
+}
+
+data class FishContent(
+    private val id: String,
+    private val name: String,
+    private val minPoints: Int,
+    private val maxPoints: Int,
+) {
+    fun getId(): FishId {
+        return FishId(this.id)
+    }
+
+    fun getName(): String {
+        return this.name
+    }
+
+    fun getMinPoints(): Int {
+        return this.minPoints
+    }
+
+    fun getMaxPoints(): Int {
+        return this.maxPoints
+    }
+
+    companion object {
+        fun create(
+            id: FishId,
+            name: String,
+            minPoints: Int,
+            maxPoints: Int,
+        ): FishContent {
+            return FishContent(
+                id = id.value,
+                name = name,
+                minPoints = minPoints,
+                maxPoints = maxPoints,
+            )
+        }
+    }
+}
+
+data class Fishery(
+    private val fishes: List<FishContent>,
+) {
+    fun getFishes(): List<FishContent> {
+        return this.fishes
+    }
+
+    companion object {
+        fun create(
+            fishes: List<FishContent>,
+        ): Fishery {
+            return Fishery(
+                fishes = fishes,
             )
         }
     }

@@ -1,26 +1,45 @@
 package com.github.bratek20.template.fishing.tests
 
 import com.github.bratek20.architecture.context.someContextBuilder
+import com.github.bratek20.architecture.properties.PropertiesMock
+import com.github.bratek20.architecture.properties.PropertiesMocks
+import com.github.bratek20.template.fishing.api.FISHERY_PROPERTY_KEY
 import com.github.bratek20.template.fishing.api.FishingApi
 import com.github.bratek20.template.fishing.context.FishingImpl
-import com.github.bratek20.template.fishing.fixtures.assertFish
+import com.github.bratek20.template.fishing.fixtures.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class FishingImplTest {
     @Test
     fun `should catch fish`() {
-        val api = someContextBuilder()
+        val c = someContextBuilder()
             .withModules(
-                FishingImpl()
+                FishingImpl(),
+                PropertiesMocks()
             )
-            .get(FishingApi::class.java)
+            .build()
 
-        val fish = api.catchFish()
+        val api = c.get(FishingApi::class.java)
+        val propertiesMock = c.get(PropertiesMock::class.java)
+        propertiesMock.set(FISHERY_PROPERTY_KEY, fishery {
+            fishes = listOf {
+                id = "szcz"
+                name = "Szczupak"
+                minPoints = 50
+                maxPoints = 100
+            }
+        })
 
-        assertFish(fish) {
+        val fish = api.catchFish(lure{
+            fishId = "szcz"
+        })
+
+        assertCaughtFish(fish) {
+            id = "szcz"
             name = "Szczupak"
-            points = 666
         }
+
+        assertThat(fish.getPoints()).isBetween(50, 100)
     }
 }
