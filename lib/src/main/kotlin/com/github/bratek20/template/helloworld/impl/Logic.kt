@@ -6,7 +6,9 @@ import com.github.bratek20.template.helloworld.api.*
 class HelloWorldApiLogic(
     private val logger: Logger
 ): HelloWorldApi {
-    override fun sayHello(): Unit {
-        logger.info("Hello World!", this)
+    override fun sayHello(): String {
+        val message = "Hello World!"
+        logger.info(message, this)
+        return message
     }
 }

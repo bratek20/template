@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 class HelloWorldImplTest {
     @Test
-    fun `should log hello world`() {
+    fun `should return and log hello world`() {
         //given
         val c = someContextBuilder()
             .withModules(
@@ -24,9 +24,10 @@ class HelloWorldImplTest {
         val loggerMock = c.get(LoggerMock::class.java)
 
         //when
-        api.sayHello()
+        val result = api.sayHello()
 
         //then
+        assertThat(result).isEqualTo("Hello World!")
         loggerMock.assertInfos("Hello World!")
     }
 }

@@ -3,5 +3,5 @@
 package com.github.bratek20.template.helloworld.api
 
 interface HelloWorldApi {
-    fun sayHello(): Unit
+    fun sayHello(): String
 }
