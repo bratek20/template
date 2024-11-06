@@ -3,5 +3,8 @@
 package com.github.bratek20.template.fishing.api
 
 interface FishingApi {
+    @Throws(
+        FishNotFound::class,
+    )
     fun catchFish(lure: Lure): CaughtFish
 }

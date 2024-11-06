@@ -8,7 +8,9 @@ class FishingApiLogic(
     private val properties: Properties
 ): FishingApi {
     override fun catchFish(lure: Lure): CaughtFish {
-        val fishContent = properties.get(FISHERY_PROPERTY_KEY).getFishes().first { it.getId() == lure.getFishId() }
+        val fishContent = properties.get(FISHERY_PROPERTY_KEY).getFishes()
+            .firstOrNull { it.getId() == lure.getFishId() } ?: throw FishNotFound("Fish with id ${lure.getFishId()} not found")
+
         val points = Random.nextInt(fishContent.getMinPoints(), fishContent.getMaxPoints())
         return CaughtFish.create(
             id = lure.getFishId(),

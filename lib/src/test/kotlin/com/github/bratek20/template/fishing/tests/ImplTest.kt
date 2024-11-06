@@ -1,9 +1,11 @@
 package com.github.bratek20.template.fishing.tests
 
 import com.github.bratek20.architecture.context.someContextBuilder
+import com.github.bratek20.architecture.exceptions.assertApiExceptionThrown
 import com.github.bratek20.architecture.properties.PropertiesMock
 import com.github.bratek20.architecture.properties.PropertiesMocks
 import com.github.bratek20.template.fishing.api.FISHERY_PROPERTY_KEY
+import com.github.bratek20.template.fishing.api.FishNotFound
 import com.github.bratek20.template.fishing.api.FishingApi
 import com.github.bratek20.template.fishing.context.FishingImpl
 import com.github.bratek20.template.fishing.fixtures.*
@@ -41,5 +43,13 @@ class FishingImplTest {
         }
 
         assertThat(fish.getPoints()).isBetween(50, 100)
+
+        assertApiExceptionThrown(
+            {api.catchFish(lure{ fishId = "abc" }) },
+            {
+                type = FishNotFound::class
+                message = "Fish with id abc not found"
+            }
+        )
     }
 }
