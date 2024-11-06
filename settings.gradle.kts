@@ -1,9 +1,10 @@
 rootProject.name = "template" // TODO: Change this
 
-val catalogVersion = "1.0.47"
+val catalogVersion = "1.0.73"
 
 include("app")
 include("lib")
+include("web-app")
 
 pluginManagement {
     repositories {
@@ -53,3 +54,4 @@ dependencyResolutionManagement {
         }
     }
 }
+

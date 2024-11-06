@@ -4,6 +4,9 @@ profiles:
     paths:
       project: "../lib"
       src:
-        main: "src/main/kotlin/com/github/bratek20/template" #TODO: Use correct package name
-        test: "src/test/kotlin/com/github/bratek20/template" #TODO: Use correct package name
-        fixtures: "src/testFixtures/kotlin/com/github/bratek20/template" #TODO: Use correct package name
+        default: "src/main/kotlin/com/github/bratek20/template" #TODO: Use correct package name
+        overrides:
+          - submodule: "Tests"
+            path: "src/test/kotlin/com/github/bratek20/template" #TODO: Use correct package name
+          - submodule: "Fixtures"
+            path: "src/testFixtures/kotlin/com/github/bratek20/template" #TODO: Use correct package name
