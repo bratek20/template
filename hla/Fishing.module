@@ -25,6 +25,7 @@ Interfaces
     FishingApi
         catchFish(lure: Lure): CaughtFish
             throws
+                FishNotFound
 
 Web
     Http
