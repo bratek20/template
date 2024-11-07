@@ -1,6 +1,6 @@
 profiles:
   - name: "lib"
-    language: "C_SHARP"
+    language: "TYPE_SCRIPT"
     paths:
       project: "../lib"
       src:
