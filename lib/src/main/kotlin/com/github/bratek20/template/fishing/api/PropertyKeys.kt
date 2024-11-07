@@ -2,7 +2,7 @@
 
 package com.github.bratek20.template.fishing.api
 
-val FISHERY_KEY_PROPERTY_KEY = com.github.bratek20.architecture.properties.api.ObjectPropertyKey(
-    "FisheryKey",
+val FISHERY_PROPERTY_KEY = com.github.bratek20.architecture.properties.api.ObjectPropertyKey(
+    "Fishery",
     Fishery::class
 )

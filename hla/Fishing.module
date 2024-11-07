@@ -19,7 +19,7 @@ Properties
     Fishery
         fishes: FishContent[]
 
-    "FisheryKey" -> Fishery
+    "Fishery" -> Fishery
 
 Interfaces
     FishingApi
