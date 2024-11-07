@@ -2,10 +2,23 @@
 
 package com.github.bratek20.template.fishing.api
 
+data class FishId(
+    val value: String
+) {
+    override fun toString(): String {
+        return value.toString()
+    }
+}
+
 data class Fish(
+    private val id: String,
     private val name: String,
     private val points: Int,
 ) {
+    fun getId(): FishId {
+        return FishId(this.id)
+    }
+
     fun getName(): String {
         return this.name
     }
@@ -16,12 +29,32 @@ data class Fish(
 
     companion object {
         fun create(
+            id: FishId,
             name: String,
             points: Int,
         ): Fish {
             return Fish(
+                id = id.value,
                 name = name,
                 points = points,
+            )
+        }
+    }
+}
+
+data class Lure(
+    private val fishId: String,
+) {
+    fun getFishId(): FishId {
+        return FishId(this.fishId)
+    }
+
+    companion object {
+        fun create(
+            fishId: FishId,
+        ): Lure {
+            return Lure(
+                fishId = fishId.value,
             )
         }
     }

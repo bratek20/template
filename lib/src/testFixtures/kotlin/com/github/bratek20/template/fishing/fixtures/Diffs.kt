@@ -4,7 +4,13 @@ package com.github.bratek20.template.fishing.fixtures
 
 import com.github.bratek20.template.fishing.api.*
 
+fun diffFishId(given: FishId, expected: String, path: String = ""): String {
+    if (given.value != expected) { return "${path}value ${given.value} != ${expected}" }
+    return ""
+}
+
 data class ExpectedFish(
+    var id: String? = null,
     var name: String? = null,
     var points: Int? = null,
 )
@@ -12,12 +18,30 @@ fun diffFish(given: Fish, expectedInit: ExpectedFish.() -> Unit, path: String = 
     val expected = ExpectedFish().apply(expectedInit)
     val result: MutableList<String> = mutableListOf()
 
+    expected.id?.let {
+        if (diffFishId(given.getId(), it) != "") { result.add(diffFishId(given.getId(), it, "${path}id.")) }
+    }
+
     expected.name?.let {
         if (given.getName() != it) { result.add("${path}name ${given.getName()} != ${it}") }
     }
 
     expected.points?.let {
         if (given.getPoints() != it) { result.add("${path}points ${given.getPoints()} != ${it}") }
+    }
+
+    return result.joinToString("\n")
+}
+
+data class ExpectedLure(
+    var fishId: String? = null,
+)
+fun diffLure(given: Lure, expectedInit: ExpectedLure.() -> Unit, path: String = ""): String {
+    val expected = ExpectedLure().apply(expectedInit)
+    val result: MutableList<String> = mutableListOf()
+
+    expected.fishId?.let {
+        if (diffFishId(given.getFishId(), it) != "") { result.add(diffFishId(given.getFishId(), it, "${path}fishId.")) }
     }
 
     return result.joinToString("\n")

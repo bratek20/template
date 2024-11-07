@@ -1,11 +1,17 @@
 ValueObjects
+    FishId: string
+
     Fish
+        id: FishId
         name: String
         points: int
 
+    Lure
+        fishId: FishId
+
 Interfaces
     FishingApi
-        catchFish(): Fish
+        catchFish(lure: Lure): Fish
 
 //Web
     //Http

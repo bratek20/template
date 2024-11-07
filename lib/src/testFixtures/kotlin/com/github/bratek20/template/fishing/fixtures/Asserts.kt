@@ -6,7 +6,17 @@ import org.assertj.core.api.Assertions.assertThat
 
 import com.github.bratek20.template.fishing.api.*
 
+fun assertFishId(given: FishId, expected: String) {
+    val diff = diffFishId(given, expected)
+    assertThat(diff).withFailMessage(diff).isEqualTo("")
+}
+
 fun assertFish(given: Fish, expectedInit: ExpectedFish.() -> Unit) {
     val diff = diffFish(given, expectedInit)
+    assertThat(diff).withFailMessage(diff).isEqualTo("")
+}
+
+fun assertLure(given: Lure, expectedInit: ExpectedLure.() -> Unit) {
+    val diff = diffLure(given, expectedInit)
     assertThat(diff).withFailMessage(diff).isEqualTo("")
 }
