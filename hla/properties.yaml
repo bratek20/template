@@ -1,6 +1,6 @@
 profiles:
   - name: "lib"
-    language: "KOTLIN"
+    language: "C_SHARP"
     paths:
       project: "../lib"
       src:
