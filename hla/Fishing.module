@@ -1,0 +1,13 @@
+ValueObjects
+    Fish
+        name: String
+        points: int
+
+Interfaces
+    FishingApi
+        catchFish(): Fish
+
+//Web
+    //Http
+        //ExposedInterfaces
+            //HelloWorldApi
