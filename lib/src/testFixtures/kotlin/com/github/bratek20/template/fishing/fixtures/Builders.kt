@@ -8,14 +8,14 @@ fun fishId(value: String = "someValue"): FishId {
     return FishId(value)
 }
 
-data class FishDef(
+data class CaughtFishDef(
     var id: String = "someValue",
     var name: String = "someValue",
     var points: Int = 0,
 )
-fun fish(init: FishDef.() -> Unit = {}): Fish {
-    val def = FishDef().apply(init)
-    return Fish.create(
+fun caughtFish(init: CaughtFishDef.() -> Unit = {}): CaughtFish {
+    val def = CaughtFishDef().apply(init)
+    return CaughtFish.create(
         id = FishId(def.id),
         name = def.name,
         points = def.points,
@@ -29,5 +29,31 @@ fun lure(init: LureDef.() -> Unit = {}): Lure {
     val def = LureDef().apply(init)
     return Lure.create(
         fishId = FishId(def.fishId),
+    )
+}
+
+data class FishContentDef(
+    var id: String = "someValue",
+    var name: String = "someValue",
+    var minPoints: Int = 0,
+    var maxPoints: Int = 0,
+)
+fun fishContent(init: FishContentDef.() -> Unit = {}): FishContent {
+    val def = FishContentDef().apply(init)
+    return FishContent.create(
+        id = FishId(def.id),
+        name = def.name,
+        minPoints = def.minPoints,
+        maxPoints = def.maxPoints,
+    )
+}
+
+data class FisheryDef(
+    var fishes: List<(FishContentDef.() -> Unit)> = emptyList(),
+)
+fun fishery(init: FisheryDef.() -> Unit = {}): Fishery {
+    val def = FisheryDef().apply(init)
+    return Fishery.create(
+        fishes = def.fishes.map { it -> fishContent(it) },
     )
 }

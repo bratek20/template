@@ -3,5 +3,5 @@
 package com.github.bratek20.template.fishing.api
 
 interface FishingApi {
-    fun catchFish(lure: Lure): Fish
+    fun catchFish(lure: Lure): CaughtFish
 }

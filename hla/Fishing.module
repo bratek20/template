@@ -1,7 +1,7 @@
 ValueObjects
     FishId: string
 
-    Fish
+    CaughtFish
         id: FishId
         name: String
         points: int
@@ -9,9 +9,21 @@ ValueObjects
     Lure
         fishId: FishId
 
+Properties
+    FishContent
+        id: FishId
+        name: String
+        minPoints: int
+        maxPoints: int
+
+    Fishery
+        fishes: FishContent[]
+
+    "FisheryKey" -> Fishery
+
 Interfaces
     FishingApi
-        catchFish(lure: Lure): Fish
+        catchFish(lure: Lure): CaughtFish
 
 //Web
     //Http

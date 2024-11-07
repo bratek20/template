@@ -11,12 +11,22 @@ fun assertFishId(given: FishId, expected: String) {
     assertThat(diff).withFailMessage(diff).isEqualTo("")
 }
 
-fun assertFish(given: Fish, expectedInit: ExpectedFish.() -> Unit) {
-    val diff = diffFish(given, expectedInit)
+fun assertCaughtFish(given: CaughtFish, expectedInit: ExpectedCaughtFish.() -> Unit) {
+    val diff = diffCaughtFish(given, expectedInit)
     assertThat(diff).withFailMessage(diff).isEqualTo("")
 }
 
 fun assertLure(given: Lure, expectedInit: ExpectedLure.() -> Unit) {
     val diff = diffLure(given, expectedInit)
+    assertThat(diff).withFailMessage(diff).isEqualTo("")
+}
+
+fun assertFishContent(given: FishContent, expectedInit: ExpectedFishContent.() -> Unit) {
+    val diff = diffFishContent(given, expectedInit)
+    assertThat(diff).withFailMessage(diff).isEqualTo("")
+}
+
+fun assertFishery(given: Fishery, expectedInit: ExpectedFishery.() -> Unit) {
+    val diff = diffFishery(given, expectedInit)
     assertThat(diff).withFailMessage(diff).isEqualTo("")
 }

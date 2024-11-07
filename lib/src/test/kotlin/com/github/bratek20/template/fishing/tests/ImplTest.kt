@@ -3,7 +3,7 @@ package com.github.bratek20.template.fishing.tests
 import com.github.bratek20.architecture.context.someContextBuilder
 import com.github.bratek20.template.fishing.api.FishingApi
 import com.github.bratek20.template.fishing.context.FishingImpl
-import com.github.bratek20.template.fishing.fixtures.assertFish
+import com.github.bratek20.template.fishing.fixtures.assertCaughtFish
 import com.github.bratek20.template.fishing.fixtures.lure
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,7 +21,7 @@ class FishingImplTest {
             fishId = "szczupak"
         })
 
-        assertFish(fish) {
+        assertCaughtFish(fish) {
             id = "szczupak"
             name = "Szczupak"
             points = 666
@@ -32,7 +32,7 @@ class FishingImplTest {
             fishId = "abc"
         })
 
-        assertFish(fish2) {
+        assertCaughtFish(fish2) {
             id = "abc"
         }
     }
