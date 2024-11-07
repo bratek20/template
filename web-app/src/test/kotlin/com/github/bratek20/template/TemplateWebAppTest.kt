@@ -3,6 +3,9 @@ package com.github.bratek20.template
 import com.github.bratek20.architecture.context.someContextBuilder
 import com.github.bratek20.infrastructure.httpclient.context.HttpClientImpl
 import com.github.bratek20.infrastructure.httpclient.fixtures.httpClientConfig
+import com.github.bratek20.template.fishing.api.FishingApi
+import com.github.bratek20.template.fishing.context.FishingWebClient
+import com.github.bratek20.template.fishing.fixtures.lure
 import com.github.bratek20.template.helloworld.api.HelloWorldApi
 import com.github.bratek20.template.helloworld.context.HelloWorldWebClient
 import org.assertj.core.api.Assertions.assertThat
@@ -17,12 +20,12 @@ class TemplateWebAppTest {
             .withModules(
                 HttpClientImpl(),
 
-                HelloWorldWebClient(httpClientConfig {
+                FishingWebClient(httpClientConfig {
                     baseUrl = "http://localhost:8080"
                 })
             )
-            .get(HelloWorldApi::class.java)
+            .get(FishingApi::class.java)
 
-        assertThat(api.sayHello()).isEqualTo("Hello World!")
+        api.catchFish(lure { fishId = "abc" })
     }
 }
