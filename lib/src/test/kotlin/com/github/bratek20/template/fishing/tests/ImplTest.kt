@@ -19,7 +19,7 @@ class FishingImplTest {
                 FishingImpl(),
 
                 PropertiesMocks()
-            )
+            ).build()
 
         val api = c.get(FishingApi::class.java)
         val propertiesMock = c.get(PropertiesMock::class.java)
